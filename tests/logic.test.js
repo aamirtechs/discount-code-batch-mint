@@ -1,6 +1,7 @@
 "use strict";
 const test = require("node:test");
 const assert = require("node:assert/strict");
+const fs = require("node:fs");
 const L = require("../src/logic.js");
 
 // Deterministic RNG (mulberry-ish LCG) for tests.
@@ -63,4 +64,16 @@ test("Shopify and WooCommerce CSV builders have the right headers", () => {
   const woo = L.buildWooCommerceCSV(["CODE1"], { amount: "15" });
   assert.ok(woo.startsWith("coupon_code,discount_type,coupon_amount"));
   assert.ok(woo.includes("CODE1,percent,15,1,,"));
+});
+
+test("Shopify and WooCommerce exports include the optional expiry date", () => {
+  const expiryDate = "2026-12-31";
+  const shop = L.buildShopifyCSV(["CODE1"], { endsAt: expiryDate });
+  const woo = L.buildWooCommerceCSV(["CODE1"], { expiryDate });
+  assert.equal(shop.split("\n")[1], `CODE1,,${expiryDate},1`);
+  assert.equal(woo.split("\n")[1], `CODE1,percent,10,1,${expiryDate},`);
+  const page = fs.readFileSync(require.resolve("../index.html"), "utf8");
+  assert.match(page, /id="expiryDate" type="date"/);
+  assert.match(page, /endsAt:\s*expiryDate/);
+  assert.match(page, /expiryDate:\s*expiryDate/);
 });
