@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discount Code Batch Mint: bulk unique promo codes in Shopify and WooCommerce format</title>
+<meta name="description" content="Generate thousands of unique, human-typeable promo codes with no 0/O or 1/I confusion, checked against your existing codes and exported in Shopify or WooCommerce import format.">
+<meta name="keywords" content="bulk discount code generator, generate unique promo codes CSV, random coupon code generator no duplicates, Shopify discount code import generator">
+<meta name="author" content="Amir Hussain">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://aamirtechs.github.io/discount-code-batch-mint/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta name="theme-color" content="#0b1f3a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Discount Code Batch Mint">
+<meta property="og:description" content="Generate thousands of unique, human-typeable promo codes, checked against your existing codes and exported in Shopify or WooCommerce import format.">
+<meta property="og:url" content="https://aamirtechs.github.io/discount-code-batch-mint/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Discount Code Batch Mint">
+<meta name="twitter:description" content="Bulk unique promo codes with an unambiguous charset, collision checks and platform-ready CSV exports.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Discount Code Batch Mint","applicationCategory":"BusinessApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Amir Hussain","url":"https://aamirtechs.com"},"url":"https://aamirtechs.github.io/discount-code-batch-mint/"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0b1f3a;--navy2:#122c50;--gold:#d4a72c;--ink:#16233a;--muted:#5a6a84;--line:#e3e9f2;--bg:#f6f8fb;--card:#ffffff}
+*{box-sizing:border-box}body{margin:0;font-family:'Plus Jakarta Sans',Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:44px 20px 36px;text-align:center}
+header h1{font-family:Sora,Arial,sans-serif;font-size:2rem;margin:0 0 10px}header h1 span{color:var(--gold)}
+header p{max-width:640px;margin:0 auto 14px;color:#dbe4f2}
+.stats{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.stats span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:5px 12px;border-radius:999px;font-size:.85rem}
+main{max-width:920px;margin:-18px auto 30px;padding:0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 6px 24px rgba(11,31,58,.07)}
+label{display:block;font-weight:700;margin:14px 0 6px;font-size:.92rem}
+input,select,textarea{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+textarea{min-height:110px;font-family:ui-monospace,Menlo,monospace;font-size:.85rem}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:640px){.row{grid-template-columns:1fr}}
+.btn-run{background:var(--gold);color:var(--navy);border:0;padding:12px 22px;border-radius:9px;font-weight:800;font-size:1rem;cursor:pointer;margin-top:18px}
+.btn-dl{background:var(--navy);color:#fff;border:0;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer;margin:10px 8px 0 0}
+.privacy{color:var(--muted);font-size:.88rem;margin-top:14px}
+.msg{margin-top:14px;font-weight:700}.err{color:#b3261e}
+table{width:100%;border-collapse:collapse;margin-top:14px;font-size:.9rem}th,td{border:1px solid var(--line);padding:7px 9px;text-align:left}th{background:#eef3fa}
+section.info{max-width:920px;margin:0 auto 30px;padding:0 16px}section.info h2{font-family:Sora,Arial,sans-serif}
+footer{background:var(--navy);color:#cdd9ec;text-align:center;padding:26px 16px;font-size:.9rem}footer a{color:var(--gold)}
+pre.out{background:#0b1f3a;color:#e8eefc;padding:14px;border-radius:10px;overflow:auto;max-height:300px;font-size:.82rem;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<header>
+<h1>Discount Code <span>Batch Mint</span></h1>
+<p>Generate thousands of unique, human-typeable promo codes (no 0/O, 1/I confusion) in patterns like SPRING-XXXXXX, exported in Shopify and WooCommerce import format.</p>
+<div class="stats"><span>Free</span><span>100% in your browser</span><span>No sign-up</span></div>
+</header>
+<main>
+<div class="card">
+<label for="pattern">Pattern (use X for random characters, e.g. SPRING-XXXXXX)</label>
+<input id="pattern" value="SPRING-XXXXXX">
+<div class="row">
+<div><label for="count">How many codes (max 50,000)</label><input id="count" type="number" value="100" min="1" max="50000"></div>
+<div><label for="charset">Character set</label>
+<select id="charset">
+<option value="unambiguous">Unambiguous (no 0/O, 1/I)</option>
+<option value="alnum">Letters and digits</option>
+<option value="digits">Digits only</option>
+<option value="letters">Letters only</option>
+</select></div>
+</div>
+<label><input type="checkbox" id="checksum" style="width:auto"> Append a checksum character</label>
+<label for="existing">Existing codes to avoid (paste a CSV or one code per line, optional)</label>
+<textarea id="existing" placeholder="OLDSALE1&#10;OLDSALE2"></textarea>
+<button class="btn-run" id="run">Mint codes</button>
+<p class="privacy">Runs 100% in your browser. Your files never leave this device.</p>
+<div class="msg" id="msg"></div>
+<div id="downloads"></div>
+<pre class="out" id="preview" style="display:none"></pre>
+</div>
+</main>
+<section class="info">
+<h2>How it works</h2>
+<ul>
+<li>Pattern builder: a prefix plus a run of X characters, with an unambiguous default charset so codes survive being read aloud or typed from a printed insert.</li>
+<li>Codes are generated with crypto.getRandomValues and kept unique in memory, up to 50,000 per batch.</li>
+<li>Paste your existing codes and any collision is excluded before export.</li>
+<li>Optional checksum character helps support staff spot a mistyped code.</li>
+<li>Export a plain list, a Shopify discount CSV or a WooCommerce coupon CSV.</li>
+</ul>
+</section>
+<footer>
+<p>Built by Amir Hussain, operations manager and founder of <a href="https://aamirtechs.com" target="_blank" rel="noopener">AamirTechs: operations, customer support and e-commerce services</a>.</p>
+<p><a href="https://github.com/aamirtechs" target="_blank" rel="noopener">More open source tools on GitHub</a></p>
+</footer>
+<script src="src/logic.js"></script>
+<script>
+var L = window.DiscountCodeBatchMint;
+var lastCodes = [];
+function download(name, text) {
+  var blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name; a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); }, 500);
+}
+document.getElementById("run").addEventListener("click", function () {
+  var msg = document.getElementById("msg");
+  msg.textContent = ""; msg.className = "msg";
+  try {
+    var existing = L.parseExistingCodes(document.getElementById("existing").value);
+    lastCodes = L.generateCodes({
+      pattern: document.getElementById("pattern").value,
+      count: parseInt(document.getElementById("count").value, 10) || 0,
+      charset: document.getElementById("charset").value,
+      checksum: document.getElementById("checksum").checked,
+      existing: existing
+    });
+    msg.textContent = "Minted " + lastCodes.length + " unique codes, 0 collisions with your existing list.";
+    var prev = document.getElementById("preview");
+    prev.style.display = "block";
+    prev.textContent = lastCodes.slice(0, 50).join("\n") + (lastCodes.length > 50 ? "\n... and " + (lastCodes.length - 50) + " more" : "");
+    var dl = document.getElementById("downloads"); dl.innerHTML = "";
+    [["Plain list (.txt)", function(){ download("codes.txt", L.buildPlainList(lastCodes)); }],
+     ["Shopify CSV", function(){ download("codes-shopify.csv", L.buildShopifyCSV(lastCodes, {})); }],
+     ["WooCommerce CSV", function(){ download("codes-woocommerce.csv", L.buildWooCommerceCSV(lastCodes, {})); }]]
+     .forEach(function (pair) { var b = document.createElement("button"); b.className = "btn-dl"; b.textContent = pair[0]; b.addEventListener("click", pair[1]); dl.appendChild(b); });
+  } catch (e) {
+    msg.textContent = e.message; msg.className = "msg err";
+  }
+});
+</script>
+</body>
+</html>
