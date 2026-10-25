@@ -65,6 +65,8 @@ pre.out{background:#0b1f3a;color:#e8eefc;padding:14px;border-radius:10px;overflo
 </select></div>
 </div>
 <label><input type="checkbox" id="checksum" style="width:auto"> Append a checksum character</label>
+<label for="expiryDate">Expiry date (optional)</label>
+<input id="expiryDate" type="date">
 <label for="existing">Existing codes to avoid (paste a CSV or one code per line, optional)</label>
 <textarea id="existing" placeholder="OLDSALE1&#10;OLDSALE2"></textarea>
 <button class="btn-run" id="run">Mint codes</button>
@@ -103,6 +105,7 @@ document.getElementById("run").addEventListener("click", function () {
   msg.textContent = ""; msg.className = "msg";
   try {
     var existing = L.parseExistingCodes(document.getElementById("existing").value);
+    var expiryDate = document.getElementById("expiryDate").value;
     lastCodes = L.generateCodes({
       pattern: document.getElementById("pattern").value,
       count: parseInt(document.getElementById("count").value, 10) || 0,
@@ -116,8 +119,8 @@ document.getElementById("run").addEventListener("click", function () {
     prev.textContent = lastCodes.slice(0, 50).join("\n") + (lastCodes.length > 50 ? "\n... and " + (lastCodes.length - 50) + " more" : "");
     var dl = document.getElementById("downloads"); dl.innerHTML = "";
     [["Plain list (.txt)", function(){ download("codes.txt", L.buildPlainList(lastCodes)); }],
-     ["Shopify CSV", function(){ download("codes-shopify.csv", L.buildShopifyCSV(lastCodes, {})); }],
-     ["WooCommerce CSV", function(){ download("codes-woocommerce.csv", L.buildWooCommerceCSV(lastCodes, {})); }]]
+     ["Shopify CSV", function(){ download("codes-shopify.csv", L.buildShopifyCSV(lastCodes, { endsAt: expiryDate })); }],
+     ["WooCommerce CSV", function(){ download("codes-woocommerce.csv", L.buildWooCommerceCSV(lastCodes, { expiryDate: expiryDate })); }]]
      .forEach(function (pair) { var b = document.createElement("button"); b.className = "btn-dl"; b.textContent = pair[0]; b.addEventListener("click", pair[1]); dl.appendChild(b); });
   } catch (e) {
     msg.textContent = e.message; msg.className = "msg err";
